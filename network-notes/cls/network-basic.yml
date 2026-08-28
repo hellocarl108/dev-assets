@@ -149,7 +149,7 @@ rules:
   - RULE-SET,javdb-domain,proxy-select
 
   # ================= 兜底规则（根据实际策略组调整） =================
-  #- GEOSITE,geolocation-!cn,proxy-select
+  - GEOSITE,geolocation-!cn,proxy-select
   - MATCH,DIRECT
 
   # -- 一些样例 -- 

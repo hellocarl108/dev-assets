@@ -7,8 +7,8 @@ payload:
   - .cosmiccute.com
   - .ddo.jp
   - .dmm-extension.com
-  - .dmm.co.jp
-  - .dmm.com
+  - +.dmm.co.jp
+  - +.dmm.com
   - .dmm.hk
   - .dmmapis.com
   - .dmmrex.com
