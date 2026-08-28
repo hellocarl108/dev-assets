@@ -1,4 +1,29 @@
 # https://mihomo.party/docs/guide/override/yaml
+rule-providers:
+
+  javdb-domain:
+    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/javdb-domain.yml
+    path: ./ruleset/javdb-domain.yml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+
+  dmm-domain:
+    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/dmm-domain.yml
+    path: ./ruleset/dmm-domain.yml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+
+  # dmm-ipcidr:
+  #   url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/dmm-ipcidr.yml
+  #   path: ./ruleset/dmm-ipcidr.yml
+  #   behavior: ipcidr
+  #   interval: 86400
+  #   format: yaml
+  #   type: http
 
 proxy-groups:
   # 主选择策略组
@@ -85,31 +110,6 @@ proxy-groups:
     type: select
     interval: 600
 
-rule-providers:
-
-  javdb-domain:
-    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/javdb-domain.yml
-    path: ./ruleset/javdb-domain.yml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-
-  dmm-domain:
-    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/dmm-domain.yml
-    path: ./ruleset/dmm-domain.yml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-
-  dmm-ipcidr:
-    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/dmm-ipcidr.yml
-    path: ./ruleset/dmm-ipcidr.yml
-    behavior: ipcidr
-    interval: 86400
-    format: yaml
-    type: http
 
 # ══════════════════════════════════════════
 # 规则 (Rules)
@@ -145,7 +145,7 @@ rules:
 
   # -- dmm --
   - RULE-SET,dmm-domain,JP SELECT
-  - RULE-SET,dmm-ipcidr,JP SELECT
+  #- RULE-SET,dmm-ipcidr,JP SELECT
   - RULE-SET,javdb-domain,proxy-select
 
   # ================= 兜底规则（根据实际策略组调整） =================
