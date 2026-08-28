@@ -150,7 +150,7 @@ rules:
 
   # ================= 兜底规则（根据实际策略组调整） =================
   - GEOSITE,geolocation-!cn,proxy-select
-  - MATCH,DIRECT
+  - MATCH,proxy-select
 
   # -- 一些样例 -- 
   # - 'DOMAIN-SUFFIX,local,🎯 全球直连'
