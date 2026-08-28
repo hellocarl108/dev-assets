@@ -1,0 +1,160 @@
+# https://mihomo.party/docs/guide/override/yaml
+
+proxy-groups:
+  # 主选择策略组
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Static.png
+    name: proxy-auto
+    type: select
+    proxies:
+      - HK AUTO
+      - SG AUTO
+      - JP AUTO
+      - US AUTO
+      - DIRECT
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Telegram.png
+    name: proxy-select
+    type: select
+    proxies:
+      - HK SELECT
+      - SG SELECT
+      - JP SELECT
+      - US SELECT
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/HK.png
+    name: HK AUTO
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)香港|Hong Kong|HK|🇭🇰
+    type: url-test
+    interval: 600
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/HK.png
+    name: HK SELECT
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)香港|Hong Kong|HK|🇭🇰
+    type: select
+    interval: 600
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/SG.png
+    name: SG AUTO
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)新加坡|Singapore|🇸🇬|狮城
+    type: url-test
+    interval: 600
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/SG.png
+    name: SG SELECT
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)新加坡|Singapore|🇸🇬|狮城
+    type: select
+    interval: 600
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/JP.png
+    name: JP AUTO
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)日本|Japan|🇯🇵
+    type: url-test
+    interval: 600
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/JP.png
+    name: JP SELECT
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)日本|Japan|🇯🇵
+    type: select
+    interval: 600
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/US.png
+    name: US AUTO
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)美国|USA|🇺🇸
+    type: url-test
+    interval: 600
+
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/US.png
+    name: US SELECT
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)美国|USA|🇺🇸
+    type: select
+    interval: 600
+
+rule-providers:
+
+  javdb-domain:
+    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/javdb-domain.yml
+    path: ./ruleset/javdb-domain.yml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+
+  dmm-domain:
+    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/dmm-domain.yml
+    path: ./ruleset/dmm-domain.yml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+
+  dmm-ipcidr:
+    url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/dmm-ipcidr.yml
+    path: ./ruleset/dmm-ipcidr.yml
+    behavior: ipcidr
+    interval: 86400
+    format: yaml
+    type: http
+
+# ══════════════════════════════════════════
+# 规则 (Rules)
+# ══════════════════════════════════════════
+rules:
+# ================= Google =================
+  # 匹配 Google 旗下所有域名（包含 YouTube、Gmail 等）
+  - GEOSITE,google,proxy-select
+  # 匹配 Google 的 IP 段（no-resolve 防止解析 DNS 导致耗时）
+  - GEOIP,google,proxy-select,no-resolve
+
+  # ================= Telegram =================
+  # 匹配 Telegram 所有官方域名与 CDN
+  - GEOSITE,telegram,proxy-select
+  # 匹配 Telegram 客户端使用的固定 IP 段
+  - GEOIP,telegram,proxy-select,no-resolve
+
+  # ================= Twitter / X =================
+  # 匹配 Twitter / X 旗下所有域名（包含 x.com, twimg.com 等）
+  - GEOSITE,twitter,proxy-select
+  - GEOIP,twitter,proxy-select,no-resolve
+
+  # ================= GitHub =================
+  # 匹配 GitHub 旗下所有域名（包含 github.com, githubassets.com, raw.githubusercontent.com 等）
+  - GEOSITE,github,proxy-select
+
+  # ================= OpenAI / ChatGPT =================
+  # 匹配 OpenAI / ChatGPT 旗下所有域名（包含 openai.com, chatgpt.com, oaistatic.com 等）
+  - GEOSITE,openai,US SELECT
+
+  # ── 中国 IP 直连 ──
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # -- dmm --
+  - RULE-SET,dmm-domain,JP SELECT
+  - RULE-SET,dmm-ipcidr,JP SELECT
+  - RULE-SET,javdb-domain,proxy-select
+
+  # ================= 兜底规则（根据实际策略组调整） =================
+  #- GEOSITE,geolocation-!cn,proxy-select
+  - MATCH,DIRECT
+
+  # -- 一些样例 -- 
+  # - 'DOMAIN-SUFFIX,local,🎯 全球直连'
+  # - 'IP-CIDR,192.168.0.0/16,🎯 全球直连,no-resolve'
+  # - 'IP-CIDR6,fc00::/7,🎯 全球直连,no-resolve'
+  # - 'DOMAIN,translate.googleapis.com,🌍 国外媒体'
+  # - 'DOMAIN-KEYWORD,tiktok,🌍 国外媒体'
