@@ -90,7 +90,7 @@ rule-providers:
   javdb-domain:
     url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/javdb-domain.yml
     path: ./ruleset/javdb-domain.yml
-    behavior: domain
+    behavior: classical
     interval: 86400
     format: yaml
     type: http
@@ -98,7 +98,7 @@ rule-providers:
   dmm-domain:
     url: https://cdn.jsdelivr.net/gh/hellocarl108/dev-assets@main/network-notes/cls/rules/dmm-domain.yml
     path: ./ruleset/dmm-domain.yml
-    behavior: domain
+    behavior: classical
     interval: 86400
     format: yaml
     type: http
